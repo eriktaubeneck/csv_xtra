@@ -41,10 +41,10 @@ def export_data(data, attributes, fileName = 'dataOut.csv'):
     csvWriter.writerows(dataOut)
     f.close()
     
-def import_data(fileName, delimiter_in=','):
+def import_data(fileName, delimiter=','):
     data = []    
     f = open(fileName, 'rb')
-    csvReader = csv.reader(f,delimiter=delimiter_in)
+    csvReader = csv.reader(f,delimiter=delimiter)
     header = csvReader.next()
     for row in csvReader:
         x = tmp_class()
