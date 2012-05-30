@@ -4,6 +4,13 @@ import csv
 class tmp_class(object):
     def __init__(self):
         pass
+    
+    def __repr__(self):
+        out = ''
+        for i in [x for x in dir(self) if '__' not in x]:
+            out += '%s: %s' % (i,getattr(self,i))
+            out += ' \n'
+        return out
 
 def export_data(data, attributes, fileName = 'dataOut.csv'):
     dataOut = []
