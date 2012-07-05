@@ -12,7 +12,7 @@ class tmp_class(object):
             out += ' \n'
         return out
 
-def export_data(data, attributes, fileName = 'dataOut.csv'):
+def export_data(data, attributes, fileName = 'dataOut.csv', delimiter = ','):
     dataOut = []
     tmp = []
     for a in attributes:
@@ -37,7 +37,7 @@ def export_data(data, attributes, fileName = 'dataOut.csv'):
                 print type(a)
         dataOut.append(tmp)
     f = open(fileName, 'wb')
-    csvWriter = csv.writer(f, delimiter = ',')
+    csvWriter = csv.writer(f, delimiter = delimiter)
     csvWriter.writerows(dataOut)
     f.close()
     
