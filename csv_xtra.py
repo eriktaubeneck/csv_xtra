@@ -64,12 +64,21 @@ def import_data(fileName, delimiter=','):
 def import_lookup(fileName, delimiter=','):
     lookup = {}
     f = open(fileName, 'rb')
-    csvReader = csv.reader(f,delimter=delimiter)
+    csvReader = csv.reader(f,delimiter=delimiter)
     header = csvReader.next()
     for row in csvReader:
         if len(row) < 2:
             print 'error: row in %s has less than 2 columns \n %s' % (fileName, row)
         elif len(row) == 2:
+            tmp_value1, tmp_value2 = row[0],row[1]
+            for tmp_value in (tmp_value1,tmp_value2):
+                try:
+                    tmp_value = int(tmp_value)
+                except ValueError:
+                    try:
+                        tmp_value = float(tmp_value)
+                    except ValueError:
+                        pass
             lookup[row[0]] = row[1]
         elif len(row) > 2:
             print 'error: row in %s has more than 2 colums. only using first 2. \n %s' % (fileName, row)
