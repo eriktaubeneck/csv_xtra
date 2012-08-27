@@ -67,8 +67,8 @@ def import_lookup(fileName, delimiter=','):
     csvReader = csv.reader(f,delimiter=delimiter)
     header = csvReader.next()
     for row in csvReader:
-        tmp_value1, tmp_value2 = row[0],row[1]
-        for tmp_value in (tmp_value1,tmp_value2):
+        tmp_values = []
+        for tmp_value in row:
             try:
                 tmp_value = int(tmp_value)
             except ValueError:
@@ -76,13 +76,14 @@ def import_lookup(fileName, delimiter=','):
                     tmp_value = float(tmp_value)
                 except ValueError:
                     pass
+            tmp_values.append(tmp_value)
         if len(row) < 2:
             print 'error: row in %s has less than 2 columns \n %s' % (fileName, row)
         elif len(row) == 2:
-            lookup[tmp_value1] = tmp_value2
+            lookup[tmp_values[0]] = tmp_values[1]
         elif len(row) > 2:
             print 'error: row in %s has more than 2 colums. only using first 2. \n %s' % (fileName, row)
-            lookup[tmp_value1] = tmp_value2
+            lookup[tmp_values[0]] = tmp_values[2]
     return lookup
 
 
