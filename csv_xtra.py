@@ -41,24 +41,33 @@ def export_data(data, attributes, fileName = 'dataOut.csv', delimiter = ','):
     csvWriter.writerows(dataOut)
     f.close()
     
-def import_data(fileName, delimiter=','):
+def import_data(fileName, delimiter=',',lines=0, header = []):
+    #function reads in flat file with data seperated in columns by a delimter and rows by new line
+    #fileName is a string of the path and file name
+    #delimiter is the character seperating row, default is a comma
+    #lines is the number of rows to be loaded. useful for sampling if data is randomly sorted 
+    #header denotes the names of the attributes in the columns. use default assingment if headers are included at the top of the file
     data = []    
     f = open(fileName, 'rb')
     csvReader = csv.reader(f,delimiter=delimiter)
-    header = csvReader.next()
+    if header == []:
+        header = csvReader.next()
+    counter = 0
     for row in csvReader:
-        x = tmp_class()
-        for h in header:
-            tmp_value = row[header.index(h)]
-            try:
-                tmp_value = int(tmp_value)
-            except ValueError:
+        counter += 1
+        if lines == 0 or counter <= lines:
+            x = tmp_class()
+            for h in header:
+                tmp_value = row[header.index(h)]
                 try:
-                    tmp_value = float(tmp_value)
+                    tmp_value = int(tmp_value)
                 except ValueError:
-                    pass
-            setattr(x,h,tmp_value)
-        data.append(x)
+                    try:
+                        tmp_value = float(tmp_value)
+                    except ValueError:
+                        pass
+                setattr(x,h,tmp_value)
+            data.append(x)
     return(data)
 
 def import_lookup(fileName, delimiter=','):
