@@ -22,4 +22,6 @@ Exporting data is also simple. Given a collection of objects `X` and a list of a
         x.profit = x.revenue - x.units * x.unit_cost
     csv_xtra.export_data(X,['id', 'profit'], file_name = 'my_data_out.csv')
 
-
+tests
+=====
+tests are written for use with [pytest](include pytest link) and cover the basic functionality of `import_data` and `export_data`. tests for `import_dict` TODO.
