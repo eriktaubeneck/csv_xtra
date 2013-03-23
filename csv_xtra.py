@@ -1,7 +1,7 @@
 import types
 import csv
 
-class tmp_class(object):
+class dataFrame(object):
     def __init__(self):
         pass
     
@@ -12,8 +12,8 @@ class tmp_class(object):
             out += ' \n'
         return out
 
-def export_data(data, attributes, fileName = 'dataOut.csv', delimiter = ','):
-    dataOut = []
+def export_data(data, attributes, file_name = 'data_out.csv', delimiter = ','):
+    data_out = []
     tmp = []
     for a in attributes:
         if type(a) == types.StringType:
@@ -22,7 +22,7 @@ def export_data(data, attributes, fileName = 'dataOut.csv', delimiter = ','):
             tmp.append(a[0]+'.'+a[1])
         else:
             print type(a) 
-    dataOut.append(tmp)
+    data_out.append(tmp)
     for x in data:
         tmp = []
         for a in attributes:
@@ -35,28 +35,28 @@ def export_data(data, attributes, fileName = 'dataOut.csv', delimiter = ','):
                 tmp.append(getattr(getattr(x,a[0]),a[1]))
             else:
                 print type(a)
-        dataOut.append(tmp)
-    f = open(fileName, 'wb')
-    csvWriter = csv.writer(f, delimiter = delimiter)
-    csvWriter.writerows(dataOut)
+        data_out.append(tmp)
+    f = open(file_name, 'wb')
+    csv_writer = csv.writer(f, delimiter = delimiter)
+    csv_writer.writerows(data_out)
     f.close()
     
-def import_data(fileName, delimiter=',',lines=0, header = []):
+def import_data(file_name, delimiter=',',lines=0, header = []):
     #function reads in flat file with data seperated in columns by a delimter and rows by new line
     #fileName is a string of the path and file name
     #delimiter is the character seperating row, default is a comma
     #lines is the number of rows to be loaded. useful for sampling if data is randomly sorted 
     #header denotes the names of the attributes in the columns. use default assingment if headers are included at the top of the file
     data = []    
-    f = open(fileName, 'rb')
-    csvReader = csv.reader(f,delimiter=delimiter)
+    f = open(file_name, 'rb')
+    csv_reader = csv.reader(f,delimiter=delimiter)
     if header == []:
-        header = csvReader.next()
+        header = csv_reader.next()
     counter = 0
-    for row in csvReader:
+    for row in csv_reader:
         counter += 1
         if lines == 0 or counter <= lines:
-            x = tmp_class()
+            x = dataFrame()
             for h in header:
                 tmp_value = row[header.index(h)]
                 try:
@@ -70,12 +70,12 @@ def import_data(fileName, delimiter=',',lines=0, header = []):
             data.append(x)
     return(data)
 
-def import_lookup(fileName, delimiter=','):
+def import_dict(file_name, delimiter=','):
     lookup = {}
-    f = open(fileName, 'rb')
-    csvReader = csv.reader(f,delimiter=delimiter)
-    header = csvReader.next()
-    for row in csvReader:
+    f = open(file_name, 'rb')
+    csv_reader = csv.reader(f,delimiter=delimiter)
+    header = csv_reader.next()
+    for row in csv_reader:
         tmp_values = []
         for tmp_value in row:
             try:
@@ -87,29 +87,10 @@ def import_lookup(fileName, delimiter=','):
                     pass
             tmp_values.append(tmp_value)
         if len(row) < 2:
-            print 'error: row in %s has less than 2 columns \n %s' % (fileName, row)
+            print 'error: row in %s has less than 2 columns \n %s' % (file_name, row)
         elif len(row) == 2:
             lookup[tmp_values[0]] = tmp_values[1]
         elif len(row) > 2:
-            print 'error: row in %s has more than 2 colums. only using first 2. \n %s' % (fileName, row)
+            print 'error: row in %s has more than 2 colums. only using first 2. \n %s' % (file_name, row)
             lookup[tmp_values[0]] = tmp_values[2]
     return lookup
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

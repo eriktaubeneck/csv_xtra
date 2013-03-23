@@ -1,3 +1,0 @@
-This is a collection of funcitons used for handling data in a csv format. It's main features currently are:
-- a function to read in data, creating a object for each row and an attribute on that object for each column. the attributes are defined by the top row
-- a fuction to write data out to a csv file, given a list of objects and a list of attributes to export 
