@@ -1,7 +1,7 @@
 csv_xtra
 ========
 
-`csv_xtra` is a welterweight module built on top of the standard csv library for quickly and simply objectifying data stored in a csv or other delimited file formats. all of the functionality provided in `csv_xtra` is also replicated in the excellent [pandas](link to pandas) library, however in some cases a user may prefer a smaller package that doesn't rely on any other packages.
+`csv_xtra` is a lightweight module built on top of the standard csv library for quickly and simply objectifying data stored in a csv or other delimited file formats. all of the functionality provided in `csv_xtra` is also replicated in the excellent [pandas](http://pandas.pydata.org/) library, however in some cases a user may prefer a smaller package that doesn't rely on any other packages.
 
 usage
 =====
@@ -24,4 +24,4 @@ Exporting data is also simple. Given a collection of objects `X` and a list of a
 
 tests
 =====
-tests are written for use with [pytest](include pytest link) and cover the basic functionality of `import_data` and `export_data`. tests for `import_dict` TODO.
+tests are written for use with [pytest](http://pytest.org/) and cover the basic functionality of `import_data` and `export_data`. tests for `import_dict` TODO.
